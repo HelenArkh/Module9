@@ -31,16 +31,29 @@ namespace Module9
 
         delegate int Calculate(int a, int c);
 
+        delegate Car CarDelegate(string name);
+
+        delegate void BwmInfo(BMW bwm);
+
         static void Main(string[] args)
         {
-            RandomNumberDelegate randomNumberDelegate = () =>
+            BwmInfo bmwInfo = GetCarInfo; // контравариантность
+            BMW bwm = new BMW
             {
-                return new Random().Next(0, 100);
+                Model = "X6"
             };
-            int result = randomNumberDelegate.Invoke();
-            Console.WriteLine(result);
-            Console.Read();
+            bmwInfo(bwm);
 
+        }
+
+        private static void GetCarInfo(Car p)
+        {
+            Console.WriteLine(p.Model);
+        }
+
+        private static BMW BuildBMW(string model)
+        {
+            return new BMW { Model = model };
         }
 
         static int Sum(int a, int b, int c)
