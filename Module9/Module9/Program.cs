@@ -37,13 +37,16 @@ namespace Module9
 
         static void Main(string[] args)
         {
-            BwmInfo bmwInfo = GetCarInfo; // контравариантность
-            BMW bwm = new BMW
-            {
-                Model = "X6"
-            };
-            bmwInfo(bwm);
+            ProcessBusinessLogic bl = new ProcessBusinessLogic();
+            bl.ProcessCompleted += bl_ProcessCompleted; // регистрируем событие
+            bl.StartProcess();
 
+        }
+
+        // перехватчик событий
+        public static void bl_ProcessCompleted()
+        {
+            Console.WriteLine("Процесс завершён!");
         }
 
         private static void GetCarInfo(Car p)
